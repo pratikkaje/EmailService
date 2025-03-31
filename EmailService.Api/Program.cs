@@ -1,7 +1,7 @@
-using Serilog;
+using EmailService.Api.Middlewares;
 using EmailService.Application.Interfaces;
 using EmailService.Infrastructure.Services;
-using EmailService.Api.Middlewares;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +37,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddLogging();
 
 // Change to OutlookEmailService if needed
-builder.Services.AddScoped<IEmailService, SendGridEmailService>(); 
+builder.Services.AddScoped<IEmailService, SendGridEmailService>();
 //builder.Services.AddScoped<IEmailService,OutlookEmailService>();
 
 var app = builder.Build();
