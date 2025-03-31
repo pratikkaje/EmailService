@@ -10,7 +10,7 @@ builder.Host.UseSerilog((ctx, lc) => lc
     .Enrich.FromLogContext()
     .WriteTo.Console()
     .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day, retainedFileCountLimit: 7)
-    .WriteTo.Seq("http://localhost:5341") // Example for Seq, a structured log server
+    //.WriteTo.Seq("http://localhost:5341") // Example for Seq, a structured log server
 );
 
 // Load configuration
