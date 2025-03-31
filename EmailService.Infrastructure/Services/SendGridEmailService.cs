@@ -1,11 +1,10 @@
 ﻿using EmailService.Application.Interfaces;
 using EmailService.Domain.Models;
+using Microsoft.Extensions.Configuration;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
 
-namespace EmailService.Application.Services
+namespace EmailService.Infrastructure.Services
 {
     public class SendGridEmailService : IEmailService
     {
@@ -19,7 +18,7 @@ namespace EmailService.Application.Services
         public async Task<bool> SendEmailAsync(EmailRequest emailRequest)
         {
             var client = new SendGridClient(_sendGridApiKey);
-            var from = new EmailAddress("your-email@example.com", "App Support");
+            var from = new EmailAddress("your-email@example.com", "Your Name");
             var to = new EmailAddress(emailRequest.To);
             var msg = MailHelper.CreateSingleEmail(from, to, emailRequest.Subject, emailRequest.Body, emailRequest.IsHtml ? emailRequest.Body : null);
 

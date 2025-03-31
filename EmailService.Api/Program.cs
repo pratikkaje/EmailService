@@ -1,11 +1,21 @@
-var builder = WebApplication.CreateBuilder(args);
+using EmailService.Application.Interfaces;
+using EmailService.Infrastructure.Services;
+using Serilog;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console());
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Configuration
+var config = builder.Configuration;
+builder.Services.Configure<OutlookEmailService>(config.GetSection("Outlook"));
+
+// Dependency Injection
+// Change to OutlookEmailService if needed
+builder.Services.AddScoped<IEmailService, SendGridEmailService>(); 
 
 var app = builder.Build();
 
@@ -17,9 +27,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
