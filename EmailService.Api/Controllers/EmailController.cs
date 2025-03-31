@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EmailService.Api.Controllers
 {
-    [Route("api/email")]
     [ApiController]
+    [Route("api/email")]
     public class EmailController : ControllerBase
     {
         private readonly IEmailService _emailService;

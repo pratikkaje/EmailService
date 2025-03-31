@@ -1,6 +1,7 @@
 using Serilog;
 using EmailService.Application.Interfaces;
 using EmailService.Infrastructure.Services;
+using EmailService.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console());
@@ -33,6 +34,8 @@ builder.Services.AddScoped<IEmailService, SendGridEmailService>();
 //builder.Services.AddScoped<IEmailService,OutlookEmailService>();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
